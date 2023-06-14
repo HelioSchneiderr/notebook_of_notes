@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/HelioSchneiderr/notebook_of_notes#readme",
   "dependencies": {
+    "dependencies": "^0.0.1",
     "express": "^4.18.2",
     "mongoose": "^7.2.4",
     "nodemon": "^2.0.22"

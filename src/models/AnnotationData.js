@@ -7,4 +7,4 @@ const AnnotationDataSchema = new mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('Annotations', AnnotationDataSchema)
+module.exports = mongoose.model('Annotations', AnnotationDataSchema);
