@@ -7,6 +7,7 @@ import './global.css';
 import './main.css';
 
 import Notes from "./components/Notes/Notes"
+import RadioButton from './components/RadioButton/Index';
 
 function App() {
 
@@ -35,8 +36,21 @@ function App() {
 
     setNotes('')
     setTitles('')
+    setAllNotes([...allNotes, response.data])
 
   }
+
+  useEffect(()=>{
+    function enableSubmitButton(){
+      let btn = document.getElementById('btn_submit')
+      btn.style.background = '#FFD3CA'
+      if(title && notes){
+        btn.style.background = "#E88F7A"
+      }
+    }
+
+    enableSubmitButton()
+  },[title, notes])
 
   return (
     <div id="app">
@@ -59,12 +73,16 @@ function App() {
              onChange={e => setNotes(e.target.value)}
              />
           </div>
-          <button type="submit">Salvar</button>
+          <button id='btn_submit' type="submit">Salvar</button>
         </form>
+        <RadioButton></RadioButton>
       </aside>
       <main>
         <ul>
-          <Notes></Notes>
+          {allNotes.map(data =>(
+            <Notes data={data} />
+          ))}
+          
         </ul>
       </main>
     </div>
