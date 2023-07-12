@@ -60,6 +60,7 @@ function App() {
           <div className="input-block">
              <label htmlFor="title">Titulo</label>
              <input
+               maxLength='30'
                required
                value={title}
                onChange={e => setTitles(e.target.value)}

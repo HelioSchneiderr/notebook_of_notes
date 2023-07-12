@@ -1,6 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
+
 import './style.css'
 
 
@@ -8,9 +9,9 @@ function RadioButton(){
 
     const CustomRadio = withStyles({
         root: {
-          color: '#FFD3CA'[400],
+          color: '#FFD3CA',
           '&$checked': {
-          color: "#eB8F7A"[600],
+          color: '#eB8F7A',
           },
         },
         checked: {},
@@ -25,11 +26,11 @@ function RadioButton(){
             </div>
             <div>
                 <CustomRadio/>
-                <span>Todos</span>
+                <span>Prioridade</span>
             </div>
             <div>
                 <CustomRadio/>
-                <span>Todos</span>
+                <span>Normal</span>
             </div>
         </div>
     )

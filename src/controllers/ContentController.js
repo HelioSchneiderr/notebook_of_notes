@@ -2,8 +2,8 @@ const Annotations = require('../models/AnnotationData')
 
 module.exports = {
     async update(req, res){
-        const { id } = request.params;
-        const { notes } = request.body;
+        const { id } = req.params;
+        const { notes } = req.body;
 
         const annotation = await Annotations.findOne({_id: id});
 
@@ -13,6 +13,6 @@ module.exports = {
             await annotation.save()
         }
 
-        return response.json(annotation);
+        return res.json(annotation);
     }
 }
