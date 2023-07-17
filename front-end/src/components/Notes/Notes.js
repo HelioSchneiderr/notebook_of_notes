@@ -5,7 +5,7 @@ import "./style.css"
 import "./style-priority.css"
 import api from '../../services/api'
 
-const Notes = ({ data }) => {
+const Notes = ({ data, handleDelete }) => {
 
   const [ changedNote, setChangedNote ] = useState('');
 
@@ -40,7 +40,10 @@ const Notes = ({ data }) => {
             <div>
               <strong>{data.title}</strong>
               <div>
-                <AiTwotoneDelete size='24'/>
+                <AiTwotoneDelete 
+                  size='24'
+                  onClick={()=> handleDelete(data._id)}
+                />
               </div>
             </div>
             <textarea 
