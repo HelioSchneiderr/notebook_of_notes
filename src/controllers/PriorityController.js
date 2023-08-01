@@ -9,7 +9,7 @@ module.exports = {
          return response.json(priorityNotes)
     },
 
-    async update(req, res){
+    async update(request, response){
         const {id} = request.params;
 
         const annotation = await Annotations.findOne({_id : id});

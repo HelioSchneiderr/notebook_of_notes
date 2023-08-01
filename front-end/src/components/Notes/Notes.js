@@ -5,7 +5,7 @@ import "./style.css"
 import "./style-priority.css"
 import api from '../../services/api'
 
-const Notes = ({ data, handleDelete }) => {
+const Notes = ({ data, handleDelete, handleChangePriority }) => {
 
   const [ changedNote, setChangedNote ] = useState('');
 
@@ -53,7 +53,10 @@ const Notes = ({ data, handleDelete }) => {
               onBlur={e=> handleSave(e.target, data.notes)}
               >
              </textarea>
-            <span><AiOutlineExclamationCircle size='24'/></span>
+            <span><AiOutlineExclamationCircle 
+                  size='24'
+                  onClick={()=> handleChangePriority(data._id)}
+                  /></span>
           </li>
          
     </>

@@ -10,21 +10,51 @@ import Notes from "./components/Notes/Notes"
 import RadioButton from './components/RadioButton/Index';
 
 function App() {
-
+  const [ selectedValue, setSelectedValue ] = useState('all')
   const [title, setTitles] = useState('')
   const [notes, setNotes] = useState('')
   const [allNotes, setAllNotes] = useState([])
 
   useEffect(()=>{
-    async function getAllNotes(){
-      const response = await api.get('/annotations')
-
-      setAllNotes(response.data)
-    }
-
+    
     getAllNotes()
   }, [])
+  
+  async function getAllNotes(){
+    const response = await api.get('/annotations')
 
+    setAllNotes(response.data)
+  }
+
+  async function loadNotes(option){
+    const params = { priority: option };
+    const response = await api.get('/priorities', { params });
+
+    if (response){
+      setAllNotes(response.data);
+    }
+  }
+
+  function handleChange(e){
+    setSelectedValue(e.value);
+
+    if (e.checked && e.value != 'all'){
+      loadNotes(e.value);
+    }else {
+      getAllNotes();
+    }
+  }
+
+  async function handleChangePriority(id){
+    const note = await api.post(`/priorities/${id}`)
+
+    if(note  &&  selectedValue !== 'all'){
+      loadNotes(selectedValue);
+    }else if(note){
+      getAllNotes();
+    }
+  }
+  
   async function handleSubmit(e){
     e.preventDefault();
     
@@ -36,7 +66,12 @@ function App() {
 
     setNotes('')
     setTitles('')
-    setAllNotes([...allNotes, response.data])
+    if (selectedValue !== 'all'){
+        getAllNotes();
+    }else{
+      setAllNotes([...allNotes, response.data])
+    }
+    setSelectedValue('all')
 
   }
 
@@ -84,7 +119,10 @@ function App() {
           </div>
           <button id='btn_submit' type="submit">Salvar</button>
         </form>
-        <RadioButton></RadioButton>
+        <RadioButton
+            selectedValue={selectedValue}
+            handleChange={handleChange}
+        />
       </aside>
       <main>
         <ul>
@@ -93,6 +131,7 @@ function App() {
             key={data._id} 
             data={data} 
             handleDelete={handleDelete}
+            handleChangePriority={handleChangePriority}
             />
           ))}
           
